@@ -4,13 +4,15 @@ package dev.codejar.entity;
 import lombok.Data;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "rekening")
-public class RekeningEntity {
+public class Rekening {
 
     @Id
     @Column(name = "nomor_rekening")
@@ -32,13 +34,13 @@ public class RekeningEntity {
     private String alamat;
 
 
-    @Column(name = "saldo", nullable = false)
-    private Double saldo = 0.0;
+    @Column(name = "saldo")
+    private BigDecimal saldo;
 
-    @OneToMany(mappedBy = "rekeningPengirim")
-    private List<TransactionEntity> transferOut;
+    @OneToMany(mappedBy = "pengirim", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Transfer> transaksiDikirim;
 
-    @OneToMany(mappedBy = "rekeningPenerima")
-    private List<TransactionEntity> transferIn;
+    @OneToMany(mappedBy = "penerima", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transfer> transaksiDiterima;
 
 }
