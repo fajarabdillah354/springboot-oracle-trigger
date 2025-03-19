@@ -13,7 +13,7 @@ import java.util.List;
 public class RekeningEntity {
 
     @Id
-    @Column
+    @Column(name = "nomor_rekening")
     private Long nomorRekening;
 
     @Column(name = "nama_nasabah", nullable = false, length = 50)
